@@ -1,0 +1,95 @@
+GIT COMMANDS USED IN THIS ASSIGNMENT
+Kushal Talati (2024EB02408)
+Repository: https://github.com/kushaltalati/git-workflow-assignment
+====================================================================
+
+1. git init -b main
+   Creates a new, empty Git repository (the hidden .git folder) in the
+   current project folder and names the first branch "main".
+
+2. git config user.name "Kushal Talati"
+   git config user.email "<email>"
+   Sets the author name and email that Git records in every commit made
+   in this repository.
+
+3. git status
+   git status --short
+   git status -sb
+   Shows which files are untracked, modified or staged. --short gives a
+   compact one-line-per-file view; -sb also shows the branch and whether
+   it is in sync with the remote.
+
+4. git add <file>
+   Moves the current changes of a file into the staging area so that they
+   are included in the next commit.
+
+5. git commit -m "<message>"
+   Saves the staged changes as a new snapshot (commit) in the repository
+   history with the given message.
+
+6. git diff
+   Shows the unstaged changes in the working directory line by line
+   (lines starting with + were added, lines starting with - were removed).
+
+7. git branch feature
+   Creates a new branch called "feature" pointing at the current commit,
+   without switching to it.
+
+8. git branch
+   Lists all local branches and marks the one currently checked out with
+   an asterisk.
+
+9. git switch feature
+   git switch main
+   Switches the working directory to the named branch. (Newer, clearer
+   equivalent of "git checkout <branch>".)
+
+10. git merge --no-ff feature -m "<message>"
+    Merges the commits of the feature branch into the current branch
+    (main). --no-ff always creates a merge commit, so the history clearly
+    shows that a branch existed and was merged.
+
+11. git log --oneline --graph --all --decorate
+    git log --oneline -3
+    git log --pretty=format:'%h | %an | %ad | %s'
+    Displays the commit history. --oneline shows one commit per line,
+    --graph draws the branch/merge structure, --all includes every
+    branch, --decorate shows branch names, -3 limits to the last three
+    commits and --pretty=format prints custom columns.
+
+12. git check-ignore -v <path>
+    Checks whether a path is ignored and prints the .gitignore line that
+    causes it. Used to verify the *.log and temp/ rules.
+
+13. git revert HEAD --no-edit
+    Undoes the last commit by creating a new commit that applies the
+    opposite changes. History is preserved, so it is safe for shared
+    repositories. --no-edit accepts the default revert message.
+
+14. git show --stat --format='%h %s' HEAD
+    Shows the details of a single commit (here the latest one): its
+    message and the files it changed.
+
+15. git remote add origin <url>
+    Connects the local repository to the GitHub repository and gives
+    that remote the short name "origin".
+
+16. git remote -v
+    Lists the configured remotes with their fetch and push URLs, to
+    confirm the connection.
+
+17. git push -u origin main
+    Uploads the main branch and its commits to GitHub. -u sets origin/main
+    as the upstream so later pushes need only "git push".
+
+18. git push origin feature
+    Uploads the feature branch to GitHub so the branch is visible there.
+
+19. git push
+    Uploads new commits of the current branch to its upstream branch.
+
+Non-Git helper command
+----------------------
+gh repo create kushaltalati/git-workflow-assignment --public
+    GitHub CLI command used to create the empty public repository on
+    GitHub (same result as using the "New repository" page on github.com).
