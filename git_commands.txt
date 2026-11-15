@@ -1,95 +1,112 @@
-GIT COMMANDS USED IN THIS ASSIGNMENT
-Kushal Talati (2024EB02408)
-Repository: https://github.com/kushaltalati/git-workflow-assignment
-====================================================================
+git_commands.txt
+Kushal Talati - 2024EB02408
+Repo: https://github.com/kushaltalati/git-workflow-assignment
 
-1. git init -b main
-   Creates a new, empty Git repository (the hidden .git folder) in the
-   current project folder and names the first branch "main".
+These are the Git commands I ran for this assignment, in the order I
+needed them, with a short note on what each one did for me.
 
-2. git config user.name "Kushal Talati"
-   git config user.email "<email>"
-   Sets the author name and email that Git records in every commit made
-   in this repository.
 
-3. git status
-   git status --short
-   git status -sb
-   Shows which files are untracked, modified or staged. --short gives a
-   compact one-line-per-file view; -sb also shows the branch and whether
-   it is in sync with the remote.
+--- Getting the repository started ---
 
-4. git add <file>
-   Moves the current changes of a file into the staging area so that they
-   are included in the next commit.
+git init -b main
+    Turned my project folder into a Git repo. The -b main part makes the
+    first branch "main" instead of the older default "master".
 
-5. git commit -m "<message>"
-   Saves the staged changes as a new snapshot (commit) in the repository
-   history with the given message.
+git config user.name "Kushal Talati"
+git config user.email "<my GitHub email>"
+    Told Git who I am for this repo only, so my commits carry my name.
 
-6. git diff
-   Shows the unstaged changes in the working directory line by line
-   (lines starting with + were added, lines starting with - were removed).
+git status        (also: git status --short, git status -sb)
+    My "where am I" command. I ran it to see what was untracked, changed
+    or staged. --short is the compact view and -sb adds the branch line,
+    which I used at the end to confirm main matched origin/main.
 
-7. git branch feature
-   Creates a new branch called "feature" pointing at the current commit,
-   without switching to it.
 
-8. git branch
-   Lists all local branches and marks the one currently checked out with
-   an asterisk.
+--- Saving work ---
 
-9. git switch feature
-   git switch main
-   Switches the working directory to the named branch. (Newer, clearer
-   equivalent of "git checkout <branch>".)
+git add <file>
+    Picks which changes go into the next commit (staging). I added files
+    by name every time rather than using "git add .".
 
-10. git merge --no-ff feature -m "<message>"
-    Merges the commits of the feature branch into the current branch
-    (main). --no-ff always creates a merge commit, so the history clearly
-    shows that a branch existed and was merged.
+git commit -m "<message>"
+    Takes whatever is staged and stores it as a commit with my message.
 
-11. git log --oneline --graph --all --decorate
-    git log --oneline -3
-    git log --pretty=format:'%h | %an | %ad | %s'
-    Displays the commit history. --oneline shows one commit per line,
-    --graph draws the branch/merge structure, --all includes every
-    branch, --decorate shows branch names, -3 limits to the last three
-    commits and --pretty=format prints custom columns.
+git diff
+    Before committing an edit I ran this to see exactly which lines I
+    had changed (+ for new lines, - for removed ones).
 
-12. git check-ignore -v <path>
-    Checks whether a path is ignored and prints the .gitignore line that
-    causes it. Used to verify the *.log and temp/ rules.
 
-13. git revert HEAD --no-edit
-    Undoes the last commit by creating a new commit that applies the
-    opposite changes. History is preserved, so it is safe for shared
-    repositories. --no-edit accepts the default revert message.
+--- Working on a branch ---
 
-14. git show --stat --format='%h %s' HEAD
-    Shows the details of a single commit (here the latest one): its
-    message and the files it changed.
+git branch feature
+    Made the feature branch from the commit I was on. It does not move
+    me onto it.
 
-15. git remote add origin <url>
-    Connects the local repository to the GitHub repository and gives
-    that remote the short name "origin".
+git branch
+    Lists my branches; the star marks the one I am on.
 
-16. git remote -v
-    Lists the configured remotes with their fetch and push URLs, to
-    confirm the connection.
+git switch feature   /   git switch main
+    Moves me between branches. Same job as the older git checkout.
 
-17. git push -u origin main
-    Uploads the main branch and its commits to GitHub. -u sets origin/main
-    as the upstream so later pushes need only "git push".
+git merge --no-ff feature -m "<message>"
+    Run from main to bring in the feature branch work. I added --no-ff
+    because otherwise Git would just fast-forward and the history would
+    look like one straight line with no sign of the branch.
 
-18. git push origin feature
-    Uploads the feature branch to GitHub so the branch is visible there.
 
-19. git push
-    Uploads new commits of the current branch to its upstream branch.
+--- Looking at history ---
 
-Non-Git helper command
-----------------------
+git log --oneline --graph --all --decorate
+    The view I used to show the history: one line per commit, with the
+    branch and merge drawn on the left and branch names in brackets.
+
+git log --oneline -3
+    Only the latest three commits. Handy for the before/after of the undo.
+
+git log --pretty=format:'%h | %an | %ad | %s'
+    Same history but printed with the columns I picked (hash, author,
+    date, message).
+
+git show --stat --format='%h %s' HEAD
+    Details of one commit. I used it on the revert commit to confirm
+    that it removed the line I had added.
+
+
+--- .gitignore ---
+
+git check-ignore -v <path>
+    Answers "is this file ignored, and by which rule?". This is how I
+    proved that debug.log and temp/ were caught by my .gitignore.
+
+
+--- Undoing a commit ---
+
+git revert HEAD --no-edit
+    My undo. It does not delete the bad commit; it adds a new commit
+    that cancels it out, so nothing is lost and the history on GitHub
+    still shows both. --no-edit keeps the automatic "Revert ..." message.
+
+
+--- GitHub ---
+
+git remote add origin <repo url>
+    Links my local repo to the GitHub repo and calls that link "origin".
+
+git remote -v
+    Prints the remote URLs so I could check the link was right.
+
+git push -u origin main
+    First upload of main. The -u remembers origin/main as the default
+    target, so afterwards plain "git push" is enough.
+
+git push origin feature
+    Uploads the feature branch too, so it can be seen on GitHub.
+
+git push
+    Sends any new commits on my current branch to GitHub.
+
+
+Not a Git command, but used once:
 gh repo create kushaltalati/git-workflow-assignment --public
-    GitHub CLI command used to create the empty public repository on
-    GitHub (same result as using the "New repository" page on github.com).
+    GitHub's command line tool. It created the empty public repo for me,
+    the same as clicking "New repository" on the website.
